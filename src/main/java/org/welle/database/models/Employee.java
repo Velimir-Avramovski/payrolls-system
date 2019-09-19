@@ -14,63 +14,72 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "EMPLOYEE")
-@NamedQueries({
-        @NamedQuery(name = "EMPLOYEE.findAll", query = "SELECT e FROM EMPLOYEE e")
-})
+@NamedQueries({ @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e"),
+		@NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name") })
 public class Employee implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
 
-    @Column(length = 40)
-    private String name;
+	@Column(length = 40)
+	private String name;
 
-    public Employee() {
-    }
+	private String password;
 
-    public Employee(String name) {
-        this.name = name;
-    }
+	public Employee() {
+	}
 
-    public int getId() {
-        return id;
-    }
+	public Employee(String name) {
+		this.name = name;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    @Override
-    public String toString() {
-        return name + " " + id;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (null == obj)
-            return false;
-        if (!(obj instanceof Employee))
-            return false;
-        Employee that = (Employee) obj;
-        if (that.name.equals(this.name) && that.id == this.id)
-            return true;
-        else
-            return false;
-    }
+	@Override
+	public String toString() {
+		return name + " " + id;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.id, this.name);
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (null == obj)
+			return false;
+		if (!(obj instanceof Employee))
+			return false;
+		Employee that = (Employee) obj;
+		if (that.name.equals(this.name) && that.id == this.id)
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id, this.name);
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }

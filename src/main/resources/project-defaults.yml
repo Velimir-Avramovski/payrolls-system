@@ -1,13 +1,13 @@
 swarm:
   deployment:
-    example-jaas-basic.war:
-      web:
+    payrolls-rest-api.war:
+      web: 
         login-config:
           auth-method: BASIC
           security-domain: my-domain
         security-constraints:
           - url-pattern: /*
-            methods: [GET]
+            methods: [GET, POST, TRACE, HEAD, DELETE, CONNECT, OPTIONS, PUT]
             roles: [admin, user]
   security:
     security-domains:
