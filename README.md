@@ -1,3 +1,5 @@
+Backend application in JavaEE that simulates a payment menagment system.
+
 ## Run
 
 You can run it many ways:
