@@ -10,8 +10,10 @@ import static org.welle.constants.Constants.FILE_EXTENTION;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import org.welle.database.models.Employee;
+import org.welle.database.models.Payroll;
 import org.welle.database.service.DbService;
 import org.welle.pojos.UserDetails;
 import org.welle.pojos.UserValidation;
@@ -37,18 +39,27 @@ public class UserAndPayrollService {
         return userValidator;
     }
 
-    public File downloadPayrollForEmployee(final String id, final String year, final String month) {
+    public String downloadPayrollForEmployee(final String id, final String year, final String month)
+            throws IOException {
         SftpService sftpClient = new SftpService();
         final String fileName = id + "_" + year + "_" + month;
         File fout = null;
         try {
             sftpClient.connect();
+            // This will download it to the server from SFTP.
+            // Build the path as it branches on SFTP side.
             fout = sftpClient.download(year + "/" + month + "/" + fileName + FILE_EXTENTION, fileName + FILE_EXTENTION);
             sftpClient.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return fout;
+        // Return the path for the client.
+        return fout.getAbsoluteFile().getAbsolutePath();
+    }
+
+    public List<Payroll> getAllPayrollsForEmployee(final String employeeId){
+        List<Payroll> payrolls = dbService.getPayrollsById(employeeId);
+        return payrolls;
     }
 
 }

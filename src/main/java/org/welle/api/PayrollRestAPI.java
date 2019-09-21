@@ -1,6 +1,7 @@
 package org.welle.api;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -23,9 +24,6 @@ import org.welle.service.UserAndPayrollService;
 @ApplicationScoped
 public class PayrollRestAPI {
 
-	@PersistenceContext
-	EntityManager em;
-
 	@Context
 	SecurityContext securityContext;
 
@@ -34,16 +32,25 @@ public class PayrollRestAPI {
 
 	@GET
 	@Path("/download/{id}/{year}/{month}")
-	@Produces(MediaType.APPLICATION_OCTET_STREAM)
+	@Produces("application/pdf")
 	public Response downloadPayrollForUser(@PathParam(value = "id") String id, @PathParam(value = "year") String year,
 			@PathParam(value = "month") String month) {
-		File fileDownload = userAndPayrollService.downloadPayrollForEmployee(id, year, month);
+		File fileDownload = null;
+		try {
+			fileDownload = new File(userAndPayrollService.downloadPayrollForEmployee(id, year, month));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		ResponseBuilder response = Response.ok((Object) fileDownload);
 		response.header("Content-Disposition", "attachment;filename=" + fileDownload.getName());
-		return Response.status(Response.Status.OK).entity("OK").build();
+		return response.build();
 	}
 
-	public void getAllPayrollsListForEmployee() {
-
+	@GET
+	@Path("/get/all/{employeeId}")
+	@Produces("application/json")
+	public Response getAllPayrollsListForEmployee(@PathParam("employeeId") String employeeId) {
+		return Response.status(Response.Status.OK).entity(userAndPayrollService.getAllPayrollsForEmployee(employeeId))
+				.build();
 	}
 }

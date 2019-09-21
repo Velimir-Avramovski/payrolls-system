@@ -9,16 +9,21 @@ import java.io.PrintWriter;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 public class SftpService {
 
-    // Move these in properties file!
-
+    @ConfigProperty(name = "payrolls.sftp.host", defaultValue = "localhost")
     private final String HOST = "localhost";
+
+    @ConfigProperty(name = "payrolls.sftp.port", defaultValue = "21")
     private final int PORT = 21;
+
+    @ConfigProperty(name = "payrolls.sftp.user", defaultValue = "")
     private final String USER = "test";
+
+    @ConfigProperty(name = "payrolls.sftp.password", defaultValue = "")
     private String PASSWORD = "1234";
-    private String FILE_OUTPUT = "C:\\Payrolls\\Downloads";
 
     private FTPClient ftp;
 
@@ -46,9 +51,9 @@ public class SftpService {
     }
 
     public File download(String source, String destination) throws IOException {
-        File outFile = new File(destination);
-        FileOutputStream out = new FileOutputStream(outFile);
+        FileOutputStream out = new FileOutputStream(destination);
         ftp.retrieveFile(source, out);
+        File outFile = new File(destination);
         return outFile;
     }
 

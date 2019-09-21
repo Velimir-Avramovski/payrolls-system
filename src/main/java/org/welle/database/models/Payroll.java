@@ -14,7 +14,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PAYROLL")
 @NamedQueries({ @NamedQuery(name = "Payroll.findAll", query = "SELECT e FROM Payroll e"),
-		@NamedQuery(name = "Payroll.findById", query = "SELECT e FROM Payroll e WHERE e.id = :id") })
+		@NamedQuery(name = "Payroll.findById", query = "SELECT e FROM Payroll e WHERE e.id = :id"),
+		@NamedQuery(name = "Payroll.findByUserId", query = "SELECT e FROM Payroll e WHERE e.userId = :userId") })
 public class Payroll implements Serializable {
 	private static final long serialVersionUID = 1L;
 
