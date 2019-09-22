@@ -1,4 +1,4 @@
-Backend application in JavaEE that simulates a payment menagment system.
+Frontend client application in JavaEE that simulates a payment menagment system.
 
 ## Run
 
@@ -10,10 +10,6 @@ You can run it many ways:
 
 ## Use
 
-http://localhost:8080/
+http://localhost:8081/
 
-You can see a Basic access authentication dialog for username/password.
-
-credentials:
-admin:1234
-user:1234
+Log in with some user given in the backend and view the payrolls for that user/employee.

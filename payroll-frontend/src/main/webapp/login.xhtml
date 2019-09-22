@@ -1,0 +1,44 @@
+<!DOCTYPE html
+   PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+   <title>Payrolls - login</title>
+   <f:facet name="last">
+      <h:outputStylesheet name="css/login.css" />
+      <h:outputStylesheet name="css/common.css" />
+   </f:facet>
+</h:head>
+
+<h:body>
+   <div class="content">
+      <div>
+         <h1>Payrolls Menagment</h1>
+      </div>
+      <div>
+         <h:graphicImage name="images/payroll-logo.png" />
+      </div>
+      <div>
+         <h:form>
+            <h3>Username</h3>
+            <span class="ui-float-label">
+               <p:inputText id="float-input" value="#{login.username}" />
+            </span>
+
+            <h3>Password</h3>
+            <span class="ui-float-label">
+               <p:password id="pwd2" value="#{login.password}" label="Password 2" required="true" />
+            </span>
+            <br></br>
+            <br></br>
+            <p:growl id="growl" life="2000" />
+            <h:commandButton icon="fa-hand-o-right" update="growl" value="Login" id="loginId"
+               action="#{login.validateUsernamePassword}" styleClass="ui-priority-primary" />
+         </h:form>
+      </div>
+   </div>
+</h:body>
+
+</html>

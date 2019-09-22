@@ -1,6 +1,9 @@
 swarm:
-  deployment:
-    payrolls-client.war:
-  security:
-    security-domains:
-      my-domain:
+  http:
+    port: 8180
+  logging:
+    loggers:
+      org.welle.*:
+        level: DEBUG
+  logger:
+    level: DEBUG
