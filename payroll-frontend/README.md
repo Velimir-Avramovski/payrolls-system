@@ -1,4 +1,4 @@
-Frontend client application in JavaEE that simulates a payment menagment system.
+Frontend client application in JSF - primefaces that simulates a payment management system.
 
 ## Run
 
@@ -6,7 +6,6 @@ You can run it many ways:
 
 * mvn package && java -jar ./target/example-jaas-basic-thorntail.jar
 * mvn thorntail:run
-* In your IDE run the `org.wildfly.swarm.Swarm` class
 
 ## Use
 

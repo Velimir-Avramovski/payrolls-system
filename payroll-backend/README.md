@@ -1,4 +1,4 @@
-Backend application in JavaEE that simulates a payment menagment system.
+Backend application in JavaEE (packed and served with Thorntail) that simulates a payment management system.
 
 ## Run
 

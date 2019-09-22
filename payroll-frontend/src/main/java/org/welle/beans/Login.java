@@ -2,11 +2,11 @@ package org.welle.beans;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -21,8 +21,12 @@ public class Login implements Serializable {
 
    final static Logger logger = Logger.getLogger(Login.class);
 
-   @Inject
+   @ManagedProperty(value = "#{validateUserService}")
    ValidateUserService userService;
+
+   public void setValidateUserServiceBean(ValidateUserService validateUserService) {
+      this.userService = validateUserService;
+   }
 
    private String msg;
    private String username;

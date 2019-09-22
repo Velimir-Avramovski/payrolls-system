@@ -2,13 +2,11 @@ package org.welle.service;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
+import javax.annotation.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
-@Named
-@RequestScoped
+@ManagedBean(value = "validateUserService")
+@SessionScoped
 public class ValidateUserService implements Serializable {
 
     private static final long serialVersionUID = 1247960964052218051L;
