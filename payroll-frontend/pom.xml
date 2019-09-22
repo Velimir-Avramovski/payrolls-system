@@ -2,11 +2,11 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>payrolls-rest-api</artifactId>
-  <groupId>com.welle.payrollsrestapi</groupId>
+  <artifactId>payrolls-client</artifactId>
+  <groupId>com.welle.payrollsclient</groupId>
   <version>0.0.1</version>
 
-  <name>Payrolls backend</name>
+  <name>Payrolls client app</name>
   <description>Thorntail Project!</description>
 
   <packaging>war</packaging>
@@ -223,17 +223,6 @@
       <scope>provided</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
-    <dependency>
-      <groupId>commons-net</groupId>
-      <artifactId>commons-net</artifactId>
-      <version>3.6</version>
-    </dependency>
-    <dependency>
-      <groupId>org.mockftpserver</groupId>
-      <artifactId>MockFtpServer</artifactId>
-      <version>2.7.1</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>io.thorntail</groupId>
       <artifactId>jaxrs</artifactId>
