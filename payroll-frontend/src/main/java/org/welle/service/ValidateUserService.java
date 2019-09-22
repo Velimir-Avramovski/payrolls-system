@@ -2,10 +2,10 @@ package org.welle.service;
 
 import java.io.Serializable;
 
-import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-@ManagedBean(value = "validateUserService")
+@ManagedBean(name = "validateUserService")
 @SessionScoped
 public class ValidateUserService implements Serializable {
 

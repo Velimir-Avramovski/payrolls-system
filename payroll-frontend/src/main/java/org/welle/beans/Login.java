@@ -22,11 +22,10 @@ public class Login implements Serializable {
    final static Logger logger = Logger.getLogger(Login.class);
 
    @ManagedProperty(value = "#{validateUserService}")
-   ValidateUserService userService;
+   ValidateUserService validateUserService;
 
-   public void setValidateUserServiceBean(ValidateUserService validateUserService) {
-      this.userService = validateUserService;
-   }
+   @ManagedProperty(value = "#{sessionUtils}")
+   SessionUtils sessionUtils;
 
    private String msg;
    private String username;
@@ -60,26 +59,40 @@ public class Login implements Serializable {
       this.username = username;
    }
 
-   // validate login
    public String validateUsernamePassword() {
       logger.info("Login called!");
-      boolean valid = userService.validateUser();
+      boolean valid = validateUserService.validateUser();
       logger.info("valid user: " + valid);
       if (valid) {
-         HttpSession session = SessionUtils.getSession();
+         HttpSession session = sessionUtils.getSession();
          session.setAttribute("username", username);
          return "payrolls";
       } else {
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
                "Incorrect Username and Passowrd", "Please enter correct username and Password"));
-         return "payrolls";
+         return "login";
       }
    }
 
-   // logout event, invalidate session
    public String logout() {
-      HttpSession session = SessionUtils.getSession();
+      HttpSession session = sessionUtils.getSession();
       session.invalidate();
       return "login";
+   }
+
+   public ValidateUserService getValidateUserService() {
+      return validateUserService;
+   }
+
+   public void setValidateUserService(ValidateUserService validateUserService) {
+      this.validateUserService = validateUserService;
+   }
+
+   public SessionUtils getSessionUtils() {
+      return sessionUtils;
+   }
+
+   public void setSessionUtils(SessionUtils sessionUtils) {
+      this.sessionUtils = sessionUtils;
    }
 }
