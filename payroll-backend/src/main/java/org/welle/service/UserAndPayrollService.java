@@ -32,6 +32,7 @@ public class UserAndPayrollService {
             userValidator = new UserValidation();
             userValidator.setUsername(userDetails.getUsername());
             userValidator.setAuthtorized(true);
+            userValidator.setUserId(employee.getId());
         } else {
             userValidator = new UserValidation();
             userValidator.setAuthtorized(false);

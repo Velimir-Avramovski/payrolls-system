@@ -2,10 +2,7 @@ package org.welle.api;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,7 +10,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-import org.welle.database.models.AccessUser;
 import org.welle.pojos.UserDetails;
 import org.welle.pojos.UserValidation;
 import org.welle.service.UserAndPayrollService;

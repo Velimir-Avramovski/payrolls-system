@@ -6,16 +6,16 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_EMPTY)
 public class UserDetails {
 
-    private String name = "";
+    private String username = "";
 
     private String password = "";
 
     public String getUsername() {
-        return name;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.name = username;
+        this.username = username;
     }
 
     public String getPassword() {

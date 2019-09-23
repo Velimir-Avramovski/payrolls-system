@@ -6,11 +6,15 @@
 
 <h:head>
    <title>Employee payrolls</title>
+   <f:facet name="last">
+      <h:outputStylesheet name="css/login.css" />
+      <h:outputStylesheet name="css/common.css" />
+   </f:facet>
 </h:head>
 
 <h:body>
    <h:form>
-      <p>Welcome #{login.username}</p>
+      <p>Welcome Employee: #{payrollsDetails.username}</p>
       <h:commandLink action="#{login.logout}" value="Logout"></h:commandLink>
    </h:form>
 </h:body>

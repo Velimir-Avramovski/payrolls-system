@@ -2,8 +2,8 @@ package org.welle.service;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.util.Base64;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -12,56 +12,49 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.welle.constants.Constants;
-import org.welle.pojos.UserValidation;
+import org.welle.pojos.Payroll;
 
-@ManagedBean(name = "validateUserService")
+@ManagedBean(name = "getAllPayrollsForUser")
 @SessionScoped
-public class ValidateUserService implements Serializable {
+public class GetAllPayrollsForUser implements Serializable {
 
-    final static Logger logger = Logger.getLogger(ValidateUserService.class);
+    private static final long serialVersionUID = 7826955452063362958L;
 
-    private static final long serialVersionUID = 1247960964052218051L;
+    final static Logger logger = Logger.getLogger(GetAllPayrollsForUser.class);
 
-    public ValidateUserService() {
+    public GetAllPayrollsForUser() {
 
     }
 
-    public UserValidation validateUser(final String username, final String password) {
+    public List<Payroll> getAllPayrollsForUser(final String userId) {
 
         CloseableHttpClient client = HttpClients.createDefault();
 
         // This is stupied, but I dont have time to optimize it !!!
 
-        HttpPost httpPost = new HttpPost(Constants.VALIDATE_USER_URL);
+        String urlToExecute = Constants.GET_ALL_PAYROLLS_URL.replace("{id}", userId);
+        logger.info("Calling url: " + urlToExecute);
+
+        HttpGet httpGet = new HttpGet(urlToExecute);
         String encoding = Base64.getEncoder()
                 .encodeToString((Constants.BASIC_USER + ":" + Constants.BASIC_PASSWORD).getBytes());
-        httpPost.setHeader(HttpHeaders.AUTHORIZATION, "Basic " + encoding);
-
-        String jsonPayload = "{\"username\":\"" + username + "\", \"password\":" + "\"" + password + "\"}";
-        StringEntity entity = null;
-        try {
-            entity = new StringEntity(jsonPayload);
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
-        }
-        entity.setContentType("application/json");
-        httpPost.setEntity(entity);
+        httpGet.setHeader(HttpHeaders.AUTHORIZATION, "Basic " + encoding);
 
         CloseableHttpResponse response = null;
         try {
-            response = client.execute(httpPost);
+            response = client.execute(httpGet);
             logger.info("Response status: " + response.getStatusLine().getStatusCode());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         String json = null;
         try {
             json = EntityUtils.toString(response.getEntity(), "UTF-8");
@@ -70,10 +63,10 @@ public class ValidateUserService implements Serializable {
         }
 
         ObjectMapper mapper = new ObjectMapper();
-        UserValidation userValidation = null;
+        List<Payroll> payrolls = null;
         try {
             logger.info("Validate json response: " + json);
-            userValidation = mapper.readValue(json, UserValidation.class);
+            payrolls = mapper.readValue(json, List.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,7 +77,10 @@ public class ValidateUserService implements Serializable {
             e.printStackTrace();
         }
 
-        return userValidation;
+        return payrolls;
     }
 
+    public void donwloadPayroll(final String payrollName){
+
+    }
 }

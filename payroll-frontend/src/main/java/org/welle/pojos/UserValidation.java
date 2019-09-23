@@ -2,18 +2,20 @@ package org.welle.pojos;
 
 public class UserValidation {
 
-    private String name = "";
+    private String username = "";
 
     private String password = "";
+
+    private Long userId;
     
     private boolean authtorized = false;
 
     public String getUsername() {
-        return name;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.name = username;
+        this.username = username;
     }
 
     public String getPassword() {
@@ -30,5 +32,13 @@ public class UserValidation {
 
 	public void setAuthtorized(Boolean authtorized) {
 		this.authtorized = authtorized;
-	}
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }

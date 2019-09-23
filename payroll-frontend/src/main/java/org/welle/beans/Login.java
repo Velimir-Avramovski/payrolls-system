@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.welle.pojos.UserValidation;
 import org.welle.service.ValidateUserService;
 import org.welle.utils.SessionUtils;
 
@@ -60,12 +61,14 @@ public class Login implements Serializable {
    }
 
    public String validateUsernamePassword() {
-      logger.info("Login called!");
-      boolean valid = validateUserService.validateUser();
+      logger.info("Login called. Username: " + this.username + ", Password: " + this.password);
+      UserValidation user = validateUserService.validateUser(this.username, this.password);
+      boolean valid = user.getAuthtorized();
       logger.info("valid user: " + valid);
       if (valid) {
          HttpSession session = sessionUtils.getSession();
          session.setAttribute("username", username);
+         session.setAttribute("userId", user.getUserId());
          return "payrolls";
       } else {
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
