@@ -1,5 +1,6 @@
 package org.welle.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class PayrollsDetails implements Serializable {
 
    private String userId;
 
+   private String downloadPayrollName;
+
    private List<Payroll> payrolls;
 
    @PostConstruct
@@ -42,6 +45,22 @@ public class PayrollsDetails implements Serializable {
       logger.info("Get payrolls for user: " + this.userId);
       this.payrolls = payrollsForUser.getAllPayrollsForUser(userId);
       logger.info("Payrolls found: " + payrolls.size());
+   }
+
+   public void onClickPayroll(String payrollName) {
+      this.downloadPayrollName = payrollName;
+   }
+
+   public void downloadPayroll(String payrollName) {
+      try {
+         payrollsForUser.donwloadPayroll(payrollName);
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+   }
+
+   public void viewPayroll() {
+
    }
 
    public PayrollsDetails() {
@@ -79,4 +98,21 @@ public class PayrollsDetails implements Serializable {
    public void setUserId(String userId) {
       this.userId = userId;
    }
+
+   public List<Payroll> getPayrolls() {
+      return payrolls;
+   }
+
+   public void setPayrolls(List<Payroll> payrolls) {
+      this.payrolls = payrolls;
+   }
+
+   public String getDownloadPayrollName() {
+      return downloadPayrollName;
+   }
+
+   public void setDownloadPayrollName(String downloadPayrollName) {
+      this.downloadPayrollName = downloadPayrollName;
+   }
+
 }

@@ -2,21 +2,54 @@
    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-   xmlns:p="http://primefaces.org/ui">
+   xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 <h:head>
    <title>Employee payrolls</title>
    <f:facet name="last">
-      <h:outputStylesheet name="css/login.css" />
       <h:outputStylesheet name="css/common.css" />
+      <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
    </f:facet>
 </h:head>
 
 <h:body>
    <h:form>
-      <p>Welcome Employee: #{payrollsDetails.username}</p>
-      <h:commandLink action="#{login.logout}" value="Logout"></h:commandLink>
+      <p:growl id="messages" />
+      <p:menubar>
+         <p:submenu label="Menu" icon="pi pi-cog">
+            <p:submenu label="Option 1" icon="pi pi-refresh">
+            </p:submenu>
+            <p:submenu label="Option 2" icon="pi pi-clone">
+            </p:submenu>
+         </p:submenu>
+
+         <f:facet name="options">
+            <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search" />
+            <p:commandButton action="#{login.logout}" value="Logout" icon="pi pi-home" />
+         </f:facet>
+      </p:menubar>
    </h:form>
+   <br></br>
+   <div class="content">
+      <p:carousel value="#{payrollsDetails.payrolls}" headerText="Welcome Employee: #{payrollsDetails.username}"
+         var="payroll" itemStyle="text-align:center" style="text-align: left" responsive="true">
+         <p:panelGrid columns="1" style="width:100%;margin:10px 0px" columnClasses="label,value" layout="grid"
+            styleClass="ui-panelgrid-blank">
+            <f:facet name="header">
+               <p:graphicImage name="images/payroll-logo.png" />
+            </f:facet>
+            <h:outputText value="Payroll Id: " />
+            <h:outputText value="#{payroll.payrollId}" />
+            <p:commandButton action="#{payrollsDetails.downloadPayroll(payroll.payrollId)}" value="Download" icon="pi pi-download" />
+         </p:panelGrid>
+         <f:facet name="footer">
+            In total there are #{fn:length(payrollsDetails.payrolls)} payrolls.
+         </f:facet>
+      </p:carousel>
+   </div>
+   <br></br>
+   <p:growl id="growl" life="2000" />
 </h:body>
 
 </html>

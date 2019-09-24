@@ -14,6 +14,7 @@
 
 <h:body>
    <div class="content">
+      <br></br>
       <div>
          <h1>Payrolls Management</h1>
       </div>
@@ -21,18 +22,15 @@
          <h:graphicImage name="images/payroll-logo.png" />
       </div>
       <div>
-         <h:form>
-            <h3>Username</h3>
-            <span class="ui-float-label">
-               <p:inputText id="float-input" value="#{login.username}" />
-            </span>
-
-            <h3>Password</h3>
-            <span class="ui-float-label">
-               <p:password id="pwd2" value="#{login.password}" label="Password 2" required="true" />
-            </span>
-            <br></br>
-            <br></br>
+         <h:form style="text-align:center; display: inline-block; position: relative;">
+            <h:panelGrid id="grid" columns="1" cellpadding="5">
+               <p:outputLabel for="usernameId" value="Username: " />
+               <p:inputText id="usernameId" required="true" value="#{login.username}" />
+               <p:message for="usernameId" />
+               <p:outputLabel for="passwordId" value="Password: " />
+               <p:password id="passwordId" required="true" value="#{login.password}" />
+               <p:message for="passwordId" />
+            </h:panelGrid>
             <p:growl id="growl" life="2000" />
             <p:commandButton icon="fa-hand-o-right" update="growl" value="Login" id="loginId"
                action="#{login.validateUsernamePassword}" styleClass="ui-priority-primary"></p:commandButton>
