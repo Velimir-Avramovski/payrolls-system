@@ -1,6 +1,7 @@
 package org.welle.beans;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.welle.pojos.Payroll;
 import org.welle.service.GetAllPayrollsForUser;
 import org.welle.utils.SessionUtils;
@@ -37,6 +40,8 @@ public class PayrollsDetails implements Serializable {
 
    private List<Payroll> payrolls;
 
+   private StreamedContent file;
+
    @PostConstruct
    public void onPostConstruct() {
       HttpSession session = sessionUtils.getSession();
@@ -51,12 +56,15 @@ public class PayrollsDetails implements Serializable {
       this.downloadPayrollName = payrollName;
    }
 
-   public void downloadPayroll(String payrollName) {
+   public StreamedContent downloadPayroll(String payrollName) {
+      InputStream stream = null;
       try {
-         payrollsForUser.donwloadPayroll(payrollName);
+         stream = payrollsForUser.donwloadPayroll(payrollName);
       } catch (IOException e) {
          e.printStackTrace();
       }
+      file = new DefaultStreamedContent(stream, "application/pdf", payrollName + ".pdf");
+      return file;
    }
 
    public void viewPayroll() {

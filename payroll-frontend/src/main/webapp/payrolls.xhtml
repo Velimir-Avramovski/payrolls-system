@@ -41,7 +41,11 @@
             </f:facet>
             <h:outputText value="Payroll Id: " />
             <h:outputText value="#{payroll.payrollId}" />
-            <p:commandButton action="#{payrollsDetails.downloadPayroll(payroll.payrollId)}" value="Download" icon="pi pi-download" />
+            <h:form>
+               <p:commandButton value="Download" ajax="false" icon="pi pi-arrow-down">
+                  <p:fileDownload value="#{payrollsDetails.downloadPayroll(payroll.payrollId)}" />
+               </p:commandButton>
+            </h:form>
          </p:panelGrid>
          <f:facet name="footer">
             In total there are #{fn:length(payrollsDetails.payrolls)} payrolls.

@@ -7,7 +7,7 @@
   <version>0.0.1</version>
 
   <name>Payrolls backend</name>
-  <description>Thorntail Project!</description>
+  <description>Thorntail Project by Velimir Avramovski!</description>
 
   <packaging>war</packaging>
 
@@ -215,12 +215,26 @@
   </build>
 
   <dependencies>
-    <!-- MicroProfile Config 1.3 API -->
     <dependency>
-      <groupId>org.eclipse.microprofile.config</groupId>
-      <artifactId>microprofile-config-api</artifactId>
-      <version>1.3</version>
-      <scope>provided</scope>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <version>1.11</version>
+    </dependency>
+    <dependency>
+      <groupId>io.thorntail</groupId>
+      <artifactId>logging</artifactId>
+      <version>${thorntail.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.thorntail</groupId>
+      <artifactId>monitor</artifactId>
+      <version>${thorntail.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
     <dependency>
